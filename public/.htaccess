@@ -1,0 +1,8 @@
+# ubah semua url setelah /public/ menjadi query string
+# misal public/controller/action menjadi public/?controller/action
+
+# ignore jika yang di request itu berupa file
+RewriteCond "%{SCRIPT_FILENAME}" !-f
+
+# buat url menjadi query string
+RewriteRule "(.+)" "?$1" [QSA,L]
