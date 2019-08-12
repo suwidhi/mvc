@@ -50,6 +50,34 @@ class router{
                 }
             }
         }
+        // controller yang didapat, jika kosong maka home.
+        $controller = isset($this->params['controller']) ? $this->params['controller'] : 'home';
+        // action yang didapat jika kosong maka index.
+        $action = isset($this->params['action']) ? $this->params['action'] : 'index';
+
+        // nama class controller yang mungkin.
+        $controllerClass = "app\\controllers\\" . $controller;
+        // nama file untuk controller yang mungkin,
+        $controllerFile = DIR_CONTROLLER . $controller . '.php';
+
+        // cek jika controller memang ada jika tidak langsung 404.
+        if(!file_exists($controllerFile)) {
+            exit("404 Not Found. Request: $controllerFile");
+        }
+
+        // jika file ada maka buat objek controller.
+        $controllerObject = new $controllerClass();
+        $controllerAction = $action . "Action";
+
+        // cek jika action ada di controller.
+        if(!method_exists($controllerObject, $controllerAction)) {
+            exit("404 Not Found. Request: $controllerFile");
+        }
+
+        // dispatch.
+        call_user_func(array($controllerObject, $controllerAction));
+        exit;
+
     }
     // mendapatkan semua parameter yang match dengan route saat ini.
     public function getParams() {

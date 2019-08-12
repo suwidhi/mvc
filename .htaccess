@@ -1,0 +1,19 @@
+# Author: Suwidiana Ketut, 09 Agustus 2019. 
+# Penulis tidak begitu paham dengan config dan metode dari rewrite engine.
+# silakan di perbaiki jika ada kesalahan, terimakasih.
+
+# Nonaktifkan idexes sehingga struktur direktory tidak terekspos.
+Options -Indexes
+
+# Mengaktifkan rewrite engine.
+RewriteEngine On
+
+# Set base dari rewrite, development: '/Complete/' -- final: '/'.
+RewriteBase /Complete/
+
+# Tetapkan kondisi rewrite
+# Hanya rewrite jika url tidak di awali dengan, development: '/Complete/public'. final: '/public'.
+RewriteCond "%{REQUEST_URI}" !^/Complete/public
+
+# Rewrite jika kondisi terpenuhi.
+RewriteRule "(.*)" "public/$1" [QSA,L]
