@@ -5,13 +5,12 @@ namespace core;
 abstract class controller{
     // variable berisikan model yang dipakai untuk mendapatkan data.
     protected $model = null;
-
     //data untuk controller yang dipakai.
     protected $data;
 
     // constructor harus berisi data yang diberikan user, dalam hal ini 
     // untuk sementara mungkin hanya post atau get.
-    public function __contruct($data) {
+    public function __construct($data = array()) {
         $this->data = $data;
     }
     // fungsi untuk melakukan pemanggilan terhadap method objek.

@@ -56,7 +56,7 @@ class router{
         // action yang didapat jika kosong maka index.
         $action = isset($this->params['action']) 
                 ? $this->correctActionName($this->params['action']) : 'index';
-        var_dump(array($controller, $action));
+
         // nama class controller yang mungkin.
         $controllerClass = "app\\controllers\\" . $controller;
         // nama file untuk controller yang mungkin,
@@ -68,7 +68,7 @@ class router{
         }
 
         // jika file ada maka buat objek controller.
-        $controllerObject = new $controllerClass();
+        $controllerObject = new $controllerClass($this->params);
         $controllerAction = $action . "Action";
 
         // cek jika action ada di controller.

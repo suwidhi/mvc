@@ -6,13 +6,19 @@ namespace app\controllers;
 class home extends \core\controller{
     // fungsi action index.
     public function indexAction() {
-        // untuk sekarang hanya untuk percobaan print selamat datang.
-        echo "selamat datang di index untuk controller home";
+        // bawa ke index.
+        \core\view::render('index.php');
     }
     // fungsi test untuk menguji fungsionalitas.
     public function testAction() {
-        // view itu secara universal.
-        $view = new \core\view('index.php');
-        require($view);
+        //var_dump($this->data);
+        // test dengan custom variable.
+        \core\view::render('display.php', $this->data);
+    }
+    // coba untuk menampilkan data
+    public function displayAction(){
+        $model = new \app\models\test();
+        $data = $model->getData();
+        \core\view::render('display.php', $data);
     }
 }

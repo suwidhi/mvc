@@ -32,7 +32,7 @@ $router->add('', array('controller' => 'home', 'action' => 'index'));
 // dan lain lainnya . . .
 $router->add('{controller}');
 $router->add('{controller}/{action}');
-$router->add('{controller}/{id:d+}/{action}');
+$router->add('{controller}/{id:\d+}/{action}');
 
 
 // dispatch atau arahkan ke controller dan action sesuai query string dan parameter.

@@ -8,7 +8,7 @@ class view{
 // parameter 1: $view nama view yang ada di \app\view\namaview.ext
 // parameter 2: $data (optional) data yang akan dipakai diview.
 
-public static function render($name, $datav= array()) {
+public static function render($name, $data= array()) {
   // lokasi view secara utuh.
   $file = DIR_VIEW . $name;
   // cek jika view memang ada.
