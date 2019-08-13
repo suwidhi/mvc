@@ -6,6 +6,14 @@ abstract class controller{
     // variable berisikan model yang dipakai untuk mendapatkan data.
     protected $model = null;
 
+    //data untuk controller yang dipakai.
+    protected $data;
+
+    // constructor harus berisi data yang diberikan user, dalam hal ini 
+    // untuk sementara mungkin hanya post atau get.
+    public function __contruct($data) {
+        $this->data = $data;
+    }
     // fungsi untuk render view ??.
     // parameter 1: $view nama view yang akan dirender.
     // parameter 2: $data data yang diambil dari model pada controller.
