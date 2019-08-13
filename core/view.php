@@ -3,22 +3,19 @@
 namespace core;
 
 class view{
-  // menyimpan nama template.
-  private $template;
-  // menyimpan data yang diberikan di constructor.
-  private $data;
-  // constructor.
-  // parameter 1: $template nama file template untuk view ini.
-  public function __construct($template) {
-    $this->template = DIR_VIEW . $template;
+// view itu sederhana. hanya untuk render nama view yang diberikan.
+// fungsi untuk merender view.
+// parameter 1: $view nama view yang ada di \app\view\namaview.ext
+// parameter 2: $data (optional) data yang akan dipakai diview.
+
+public static function render($name, $datav= array()) {
+  // lokasi view secara utuh.
+  $file = DIR_VIEW . $name;
+  // cek jika view memang ada.
+  if(!is_file($file)) {
+    exit('Error, tidak mampu merender view. Hubungi administrator.');
   }
-  // untuk sementara definisi template untuk view ini.
-  // parameter 1: $data data template view.
-  protected function setData($data) {
-    $this->data = $data;
-  }
-  // untuk menampilkan semua template yang diload dengan echo atau print.
-  public function __toString() {
-    return $this->template;
-  }
+  require($file);
+  exit;
+}
 }

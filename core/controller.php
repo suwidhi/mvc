@@ -14,18 +14,27 @@ abstract class controller{
     public function __contruct($data) {
         $this->data = $data;
     }
-    // fungsi untuk render view ??.
-    // parameter 1: $view nama view yang akan dirender.
-    // parameter 2: $data data yang diambil dari model pada controller.
-    protected function renderView($view, $data) {
-        // ambil view dari direktori view di tambah dengan nama view.
-        $view = DIR_VIEW . $view;
-        // check jika view valid jika tidak maka hentikan program.
-        if(!is_file($view)) {
-            exit("View $view tidak ditemukan");
-        } 
-        // render view.
-        include($view);
+    // fungsi untuk melakukan pemanggilan terhadap method objek.
+    // parameter 1: $name nama method yang dipanggil.
+    // parameter 2: $params: parameter berupa array.
+    public function __call($name, $params) {
+        // karena suatu alasan nama method biasanya ditambakan action, jadi index = indexAction.
+        $name = $name . 'Action';
+        // cek jika method terkait ada di objek ini.
+        if(!method_exists($this, $name)) {
+            exit('Ada yang salah dengan sistem, ini seharusnya tidak pernah terpanggil.');
+        }
+        $this->before();
+        call_user_func(array($this, $name), $params);
+        $this->after();
+    }
+    // method tentang apa yang terjadi sebelum terjadi pemanggilan.
+    protected function before() {
+        echo "sebelummnya";
+    }
+    // apa yang terjadi setelahnya.
+    protected function after() {
+        echo "sesudahnya";
     }
 
 }

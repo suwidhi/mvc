@@ -51,10 +51,12 @@ class router{
             }
         }
         // controller yang didapat, jika kosong maka home.
-        $controller = isset($this->params['controller']) ? $this->params['controller'] : 'home';
+        $controller = isset($this->params['controller']) 
+                    ? $this->correctControllerName($this->params['controller']) : 'home';
         // action yang didapat jika kosong maka index.
-        $action = isset($this->params['action']) ? $this->params['action'] : 'index';
-
+        $action = isset($this->params['action']) 
+                ? $this->correctActionName($this->params['action']) : 'index';
+        var_dump(array($controller, $action));
         // nama class controller yang mungkin.
         $controllerClass = "app\\controllers\\" . $controller;
         // nama file untuk controller yang mungkin,
@@ -62,7 +64,7 @@ class router{
 
         // cek jika controller memang ada jika tidak langsung 404.
         if(!file_exists($controllerFile)) {
-            exit("404 Not Found. Request: $controllerFile");
+            $this->error404();
         }
 
         // jika file ada maka buat objek controller.
@@ -71,11 +73,11 @@ class router{
 
         // cek jika action ada di controller.
         if(!method_exists($controllerObject, $controllerAction)) {
-            exit("404 Not Found. Request: $controllerFile");
+            $this->error404();
         }
 
         // dispatch.
-        call_user_func(array($controllerObject, $controllerAction));
+        call_user_func(array($controllerObject, $action));
         exit;
 
     }
@@ -87,5 +89,29 @@ class router{
     // mendapatkan semua routes yang tersimpan, fungsi sementara. Akan dihapus setelah final.
     public function getRoutes(){
         return $this->routes;
+    }
+    // untuk menampilka route yang tidak ada
+    protected function error404() {
+        \core\view::render('404.php');
+    }
+    // ubah nama controller agar sesuai dengan query string
+    // parameter 1: $name nama controller.
+    protected function correctControllerName($name) {
+        // perubahan yang dilakukan hanya mengubah '-' menjadi '_';
+        return str_replace('-', '_', $name);
+    }
+    // ubah nama action agar sesuai.
+    // parameter 1: $name nama action.
+    protected function correctActionName($name) {
+        // misal nama 'nama-action-percobaan' menjadi 'namaActionPercobaan';
+        // 1. ubah '-' menjadi ' ';
+        $name = str_replace('-', ' ', $name);
+        // 2. ubah setiap hurup awal kata menjadi hurup besar.
+        $name = ucwords($name);
+        // 3. ubah ' ' menjadi '';
+        $name = str_replace(' ', '', $name);
+        // 4. ubah hurup pertama menjadi hurup kecil.
+        $name = lcfirst($name);
+        return $name;
     }
 }
