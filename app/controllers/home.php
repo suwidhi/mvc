@@ -2,6 +2,8 @@
 
 namespace app\controllers;
 
+use core\new_view;
+
 // controller untuk home.
 class home extends \core\controller{
     // fungsi action index.
@@ -17,8 +19,11 @@ class home extends \core\controller{
     }
     // coba untuk menampilkan data
     public function displayAction(){
-        $model = new \app\models\test();
-        $data = $model->getData();
-        \core\view::render('display.php', $data);
+        $view = new new_view('base.php');
+        $list = new new_view('components/list.php');
+        $list->setData(array('name' => 'test', 'list-items' => array('satu', 'dua', 'tiga')));
+
+        $view->addComponent('main', $list);
+        $view->view();
     }
 }

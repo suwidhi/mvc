@@ -7,6 +7,7 @@
   <title>index template</title>
 </head>
 <body>
-  <h3>SAAT INI BELUM MEMPROSES DATA.</h3>
+  <h3>INI ADALAH BASE.</h3>
+  <? $this->view('main'); ?>
 </body>
 </html>
