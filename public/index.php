@@ -37,7 +37,3 @@ $router->add('{controller}/{id:\d+}/{action}');
 
 // dispatch atau arahkan ke controller dan action sesuai query string dan parameter.
 $router->dispatch($_SERVER['QUERY_STRING']);
-
-var_dump($router->getRoutes());
-var_dump($router->getParams());
-var_dump($_SERVER['QUERY_STRING']);
