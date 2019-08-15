@@ -8,6 +8,6 @@
 </head>
 <body>
   <h3>INI ADALAH BASE.</h3>
-  <? $this->view('main'); ?>
+  <?php $this->view('main'); ?>
 </body>
 </html>

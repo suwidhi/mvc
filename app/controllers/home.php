@@ -21,7 +21,7 @@ class home extends \core\controller{
     public function displayAction(){
         $view = new new_view('base.php');
         $list = new new_view('components/list.php');
-        $list->setData(array('name' => 'test', 'list-items' => array('satu', 'dua', 'tiga')));
+        $list->setData(array(1,2,3,4,5));
 
         $view->addComponent('main', $list);
         $view->view();
